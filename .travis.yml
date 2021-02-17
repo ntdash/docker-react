@@ -1,3 +1,6 @@
+sudo: required
+language: generic
+
 services:
   - docker
 
@@ -5,7 +8,7 @@ before_install:
   - docker build -t ntdash/docker-react -f Dockerfile.test .
 
 script:
-  - docker run ntdash/docker-react npm run test:ci
+  - docker run -e CI=true ntdash/docker-react npm run test
 
 deploy:
   provider: elasticbeanstalk
@@ -16,7 +19,5 @@ deploy:
   bucket_path: "docker-react"
   on:
     branch: main
-  access_key_id: 
-    secure: $AWS_ACCESS_KEY
-  secret_access_key:
-    secure: $AWS_SECRET_KEY
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
