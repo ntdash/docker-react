@@ -7,4 +7,4 @@ before_install:
   - docker build -t ntdash/docker-react -f Dockerfile.test .
 
 script:
-  - docker run ntdash/docker-react npm run test -- --coverage
+  - docker run ntdash/docker-react npm run test:ci
