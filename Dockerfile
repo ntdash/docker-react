@@ -1,4 +1,18 @@
-FROM docker/whalesay:latest
-LABEL Name=frontendwsl Version=0.0.1
-RUN apt-get -y update && apt-get install -y fortunes
-CMD ["sh", "-c", "/usr/games/fortune -a | cowsay"]
+FROM node:alpine as builder
+
+WORKDIR /app
+
+COPY package.json .
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build
+
+
+FROM nginx
+
+EXPOSE 80
+
+COPY --from=builder /app/build /usr/share/nginx/html
