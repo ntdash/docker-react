@@ -8,7 +8,7 @@ script:
   - docker run ntdash/docker-react npm run test:ci
 
 deploy:
-  provider: elastikbeanstalk
+  provider: elasticbeanstalk
   region: "us-east-2"
   app: "docker-react"
   env: "Dockerreact-env"
